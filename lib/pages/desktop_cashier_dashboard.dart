@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:otop_front/components/add_product_screen.dart';
+import 'package:otop_front/components/on_sales.dart';
+// import 'package:otop_front/components/on_sales.dart';  
+// import 'package:otop_front/components/add_product_screen.dart';
+import 'package:otop_front/components/reports.dart';
 import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/components/transactions.dart';
 import 'package:otop_front/responsive/constant.dart';
@@ -16,7 +19,7 @@ class DesktopCashierDashboard extends StatefulWidget {
 }
 
 class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
-  Widget _currentWidget = AddProductScreen();
+  Widget _currentWidget = SupplierList();
 
   // Instance of AuthService
   final AuthService _authService = AuthService();
@@ -92,7 +95,7 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                     width: 50,
                   ),
                   SizedBox(width: 575),
-                  Text('SUPPLIER DASHBOARD',
+                  Text('CASHIER DASHBOARD',
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
                 ],
               ),
@@ -114,12 +117,12 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                       ListTile(
                         leading: Icon(Icons.home),
                         title: Text(
-                          'My Product',
+                          'Reports',
                           style: TextStyle(fontSize: 13),
                         ),
                         onTap: () {
                           setState(() {
-                            _currentWidget = AddProductScreen();
+                            _currentWidget = ReportList();
                           });
                         },
                       ),
@@ -148,13 +151,15 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                         },
                       ),
                       ListTile(
-                        leading: Icon(Icons.shopping_bag_rounded),
+                        leading: Icon(Icons.shopping_bag),
                         title: Text(
                           'On Sales',
                           style: TextStyle(fontSize: 13),
                         ),
                         onTap: () {
-                          // _currentWidget = AdminSales(); // Uncomment and add your logic
+                          setState(() {
+                            _currentWidget = OnSales();
+                          });
                         },
                       ),
                       Spacer(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otop_front/components/add_product_screen.dart';
+import 'package:otop_front/components/on_sales.dart';
 import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/components/transactions.dart';
 import 'package:otop_front/responsive/constant.dart';
@@ -16,7 +17,7 @@ class DesktopAdminDashboard extends StatefulWidget {
 }
 
 class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
-  Widget _currentWidget = AddProductScreen();
+  Widget _currentWidget = SupplierList();
 
   // Instance of AuthService
   final AuthService _authService = AuthService();
@@ -92,7 +93,7 @@ class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
                     width: 50,
                   ),
                   SizedBox(width: 575),
-                  Text('SUPPLIER DASHBOARD',
+                  Text('ADMIN DASHBOARD',
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
                 ],
               ),
@@ -154,7 +155,7 @@ class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
                           style: TextStyle(fontSize: 13),
                         ),
                         onTap: () {
-                          // _currentWidget = AdminSales(); // Uncomment and add your logic
+                          _currentWidget = OnSales();
                         },
                       ),
                       Spacer(),
