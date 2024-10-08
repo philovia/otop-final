@@ -100,7 +100,7 @@ class _MobileSupplierDashboardState extends State<MobileSupplierDashboard> {
                 child: Text(
                   'SUPPLIER DASHBOARD',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 11,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),

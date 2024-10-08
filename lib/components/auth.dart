@@ -14,7 +14,7 @@ import 'package:otop_front/pages/tablet_admin_dashboard.dart'; // Import your ta
 import 'package:otop_front/pages/tablet_cashier_dashboard.dart';
 import 'package:otop_front/pages/tablet_supplier_dashboard.dart';
 import 'package:otop_front/providers/product_provider.dart';
-import 'package:otop_front/responsive/constant.dart';
+// import 'package:otop_front/responsive/constant.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -154,15 +154,17 @@ class _AuthFormState extends State<AuthForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('DOLORES OTOP.PH'),
+        backgroundColor: Colors.blue,
+        title: Center(child: Text('DOLORES OTOP.PH')),
       ),
-      backgroundColor: myDefaultBackground,
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: const Color.fromARGB(194, 255, 255, 255),
+            border: Border.all(color: Colors.indigo),
             borderRadius: BorderRadius.circular(10),
+            
           ),
           width: 300,
           child: SingleChildScrollView(

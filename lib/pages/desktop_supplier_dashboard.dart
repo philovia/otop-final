@@ -6,6 +6,7 @@ import 'package:otop_front/components/transactions.dart';
 // import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/responsive/constant.dart';
 import 'package:otop_front/services/logout_services.dart';
+import 'package:otop_front/widget/custom_container.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -156,7 +157,9 @@ class _DesktopSupplierDashboardState extends State<DesktopSupplierDashboard> {
                           style: TextStyle(fontSize: 13),
                         ),
                         onTap: () {
-                          // _currentWidget = AdminSales(); // Uncomment and add your logic
+                          setState(() {
+                            _currentWidget = CustomContainer();
+                          });
                         },
                       ),
                       Spacer(),
@@ -179,7 +182,10 @@ class _DesktopSupplierDashboardState extends State<DesktopSupplierDashboard> {
                     
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.0),
+                          topRight: Radius.circular(20.0),
+                        )
                       ),
                       child: Align(
                         alignment: Alignment.center,
