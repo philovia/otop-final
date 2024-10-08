@@ -1,12 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:otop_front/widget/pos_widget.dart';
 
+class CustomContainerCashier extends StatelessWidget {
+  const CustomContainerCashier({super.key});
 
-  import 'package:flutter/material.dart';
-import 'package:otop_front/widget/costom_listview.dart';
-
-  class CustomContainer extends StatelessWidget {
-    const CustomContainer({super.key});
-
-    @override
+  @override
     Widget build(BuildContext context) {
       // get the width of the screen
       double screenWidth = MediaQuery.of(context).size.width;
@@ -47,7 +45,7 @@ import 'package:otop_front/widget/costom_listview.dart';
               ],
             ),
             // to put the listview inside the container
-            child: ListViewWidget(),
+            child: POSWidget()
           ),
 
         ),
@@ -57,7 +55,7 @@ import 'package:otop_front/widget/costom_listview.dart';
 
   void main (){
     runApp(MaterialApp(
-      home: CustomContainer(),
+      home:CustomContainerCashier()
     ),
     );
   }

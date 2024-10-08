@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otop_front/components/custom_container_cashier.dart';
 import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_front/components/on_sales.dart';  
 // import 'package:otop_front/components/add_product_screen.dart';
@@ -7,6 +8,7 @@ import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/components/transactions.dart';
 import 'package:otop_front/responsive/constant.dart';
 import 'package:otop_front/services/logout_services.dart';
+// import 'package:otop_front/widget/pos_widget.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -115,18 +117,6 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                     children: [
                       SizedBox(height: 10),
                       ListTile(
-                        leading: Icon(Icons.home),
-                        title: Text(
-                          'Reports',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _currentWidget = ReportList();
-                          });
-                        },
-                      ),
-                      ListTile(
                         leading: Icon(Icons.shopping_bag),
                         title: Text(
                           'Suppliers',
@@ -135,6 +125,18 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                         onTap: () {
                           setState(() {
                             _currentWidget = SupplierList();
+                          });
+                        },
+                      ),
+                       ListTile(
+                        leading: Icon(Icons.shopping_bag),
+                        title: Text(
+                          'Purchase',
+                          style: TextStyle(fontSize: 13),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _currentWidget = CustomContainerCashier();
                           });
                         },
                       ),
@@ -159,6 +161,18 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                         onTap: () {
                           setState(() {
                             _currentWidget = OnSales();
+                          });
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.home),
+                        title: Text(
+                          'Reports',
+                          style: TextStyle(fontSize: 13),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _currentWidget = ReportList();
                           });
                         },
                       ),

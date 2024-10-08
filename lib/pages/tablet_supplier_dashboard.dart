@@ -6,6 +6,7 @@ import 'package:otop_front/components/transactions.dart';
 // import 'package:otop_front/components/transactions.dart';
 import 'package:otop_front/responsive/constant.dart';
 import 'package:otop_front/services/logout_services.dart';
+import 'package:otop_front/widget/custom_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TabletSupplierDashboard extends StatefulWidget {
@@ -152,7 +153,21 @@ class _TabletSupplierDashboardState extends State<TabletSupplierDashboard> {
                           style: TextStyle(fontSize: 13),
                         ),
                         onTap: () {
-                          _currentWidget = MyTransaction(); // Uncomment and add your logic
+                          setState(() {
+                            _currentWidget = MyTransaction();
+                          }); // Uncomment and add your logic
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.add_box),
+                        title: Text(
+                          'On Sales',
+                          style: TextStyle(fontSize: 13),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _currentWidget = CustomContainer();
+                          });
                         },
                       ),
                       Spacer(),

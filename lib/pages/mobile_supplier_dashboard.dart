@@ -7,6 +7,7 @@ import 'package:otop_front/components/order_list.dart';
 import 'package:otop_front/components/transactions.dart';
 import 'package:otop_front/responsive/constant.dart';
 import 'package:otop_front/services/logout_services.dart';
+import 'package:otop_front/widget/custom_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MobileSupplierDashboard extends StatefulWidget {
@@ -168,9 +169,9 @@ class _MobileSupplierDashboardState extends State<MobileSupplierDashboard> {
                 ),
                 onTap: () {
                   // Uncomment and implement the action for On Sales if needed
-                  // setState(() {
-                  //   _currentWidget = AdminSales();
-                  // });
+                  setState(() {
+                    _currentWidget = CustomContainer();
+                  });
                   Navigator.of(context).pop(); // Close the drawer after selection
                 },
               ),

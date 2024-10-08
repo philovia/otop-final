@@ -86,21 +86,26 @@ class _TabletCashierDashboardState extends State<TabletCashierDashboard> {
             preferredSize: Size.fromHeight(90),
             child: AppBar(
               elevation: 0,
-              title: Row(
-                children: [
-                  Image.asset(
-                    'images/otopph.png',
-                    height: 50,
-                    width: 50,
-                  ),
-                  SizedBox(width: 575),
-                  Text('CASHIER DASHBOARD',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
-                ],
-              ),
               backgroundColor: Color.fromARGB(255, 16, 136, 165),
-            ),
-          ),
+              title: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          'images/otopph.png',
+          height: 50,
+          width: 50,
+        ),
+        Spacer(),
+        Text(
+          'CASHIER DASHBOARD',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        Spacer(flex: 2), // Ensure more spacing to the right of the title
+      ],
+    ),
+  ),
+),
+
           // Main content
           Expanded(
             child: Row(

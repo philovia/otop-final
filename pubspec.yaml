@@ -39,7 +39,8 @@ dependencies:
   http: ^1.2.2
   shared_preferences: ^2.0.15
   logger: ^2.4.0
-  # path_provider: ^2.1.4
+  pdf: ^3.10.0
+  printing: ^5.7.2
   url_launcher: ^6.0.20
   google_fonts: ^6.2.1
   provider: ^6.1.2
