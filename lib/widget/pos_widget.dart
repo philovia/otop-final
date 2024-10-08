@@ -29,9 +29,15 @@ class POSWidget extends StatefulWidget {
 
 class _POSWidgetState extends State<POSWidget> {
   final List<Product> products = [
-    Product(name: 'Trumeric Brew 20grams', price: 50.0, stock: 20),
-    Product(name: 'Trumeric Brew 500grams', price: 150.0, stock: 50),
-    Product(name: 'Trumeric Brew 250grams', price: 90.0, stock: 30),
+    Product(name: 'Turmeric Brew 20grams', price: 50.0, stock: 20),
+    Product(name: 'Turmeric Brew 500grams', price: 150.0, stock: 50),
+    Product(name: 'Turmeric Brew 250grams', price: 90.0, stock: 30),
+    Product(name: 'Turmeric Flower 250grams', price: 90.0, stock: 30),
+    Product(name: 'Turmeric Tea 250grams', price: 90.0, stock: 30),
+    Product(name: 'Turmeric Coffee 250grams', price: 90.0, stock: 30),
+    Product(name: 'Turmeric Brew 250grams', price: 90.0, stock: 30),
+    Product(name: 'Turmeric Brew 250grams', price: 90.0, stock: 30),
+    Product(name: 'Turmeric Organic 250grams', price: 90.0, stock: 30),
   ];
 
   List<Product> filteredProducts = [];
@@ -80,7 +86,7 @@ class _POSWidgetState extends State<POSWidget> {
     return total;
   }
 
-   // Show a dialog to add a product to the cart with quantity control
+  // Show a dialog to add a product to the cart with quantity control
   void showAddToCartDialog(Product product) {
     int quantity = 1; // Start with 1 by default
 
@@ -166,55 +172,61 @@ class _POSWidgetState extends State<POSWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: () {
-              showCartDialog();  // Open the cart dialog when cart icon is pressed
-            },
-          ),
-        ],
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Search TextField
-            TextField(
-              controller: searchController,
-              decoration: InputDecoration(
-                labelText: 'Search Product',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
-              ),
-              onChanged: (query) {
-                filterProducts(query);
-              },
+            // Custom header with search field and cart icon
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      labelText: 'Search Product',
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (query) {
+                      filterProducts(query);
+                    },
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  onPressed: () {
+                    showCartDialog(); // Open the cart dialog when cart icon is pressed
+                  },
+                ),
+              ],
             ),
             SizedBox(height: 16.0),
-            
+
             // Product ListView
             Expanded(
-              child: filteredProducts.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: filteredProducts.length,
-                      itemBuilder: (context, index) {
-                        final product = filteredProducts[index];
-                        return ListTile(
-                          title: Text('${product.name} (Php${product.price})'),
-                          subtitle: Text('Stock: Php ${product.stock}'),
-                          trailing: IconButton(
-                            icon: Icon(Icons.add_shopping_cart),
-                            onPressed: () {
-                              showAddToCartDialog(product);  // Show dialog to add to cart
-                            },
-                          ),
-                        );
-                      },
-                    )
+              child: searchController.text.isNotEmpty // Check if there's a search query
+                  ? filteredProducts.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: filteredProducts.length,
+                          itemBuilder: (context, index) {
+                            final product = filteredProducts[index];
+                            return ListTile(
+                              title: Text('${product.name} (Php${product.price})'),
+                              subtitle: Text('Stock: ${product.stock}'),
+                              trailing: IconButton(
+                                icon: Icon(Icons.add_shopping_cart),
+                                onPressed: () {
+                                  showAddToCartDialog(product); // Show dialog to add to cart
+                                },
+                              ),
+                            );
+                          },
+                        )
+                      : Center(
+                          child: Text('No products found matching your search'),
+                        )
                   : Center(
-                      child: Text('No products found'),
+                      child: Text('Please enter a search query to see products'),
                     ),
             ),
           ],

@@ -20,9 +20,9 @@ class CustomContainerCashier extends StatelessWidget {
       }
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.grey[400],
+          backgroundColor: const Color.fromARGB(255, 197, 192, 192),
           title:  
-              Center(child: Text('On Sales', style: TextStyle(fontSize: 16))),
+              Center(child: Text('Purchase Product', style: TextStyle(fontSize: 18))),
         ),
         body: Center(
           child: Container(
@@ -31,10 +31,9 @@ class CustomContainerCashier extends StatelessWidget {
             // padding: EdgeInsets.all(1.0),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20.0),
-                bottomRight: Radius.circular(20.0),
-              ),
+              // borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.0),
+              // bottomRight: Radius.circular(20.0),
+              // ),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.5),

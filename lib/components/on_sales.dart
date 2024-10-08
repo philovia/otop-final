@@ -20,7 +20,7 @@ class _OnSalesState extends State<OnSales> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('DAILY REPORTS', style: TextStyle(fontSize: 18)),
+        title: const Text('On Sales', style: TextStyle(fontSize: 18)),
         centerTitle: true,
         actions: [
           IconButton(
@@ -80,10 +80,6 @@ class _OnSalesState extends State<OnSales> {
               children: [
                 Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text('Product ID', style: TextStyle(fontWeight: FontWeight.bold)),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
                   child: Text('Product Name', style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
                 Padding(
@@ -110,10 +106,6 @@ class _OnSalesState extends State<OnSales> {
   TableRow _buildProductRow(Product product, List<Product> products) {
     return TableRow(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(product.id),
-        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(product.name),
@@ -147,18 +139,11 @@ class _OnSalesState extends State<OnSales> {
   }
 
   Widget _addProductRow(List<Product> products) {
-    final TextEditingController idController = TextEditingController();
     final TextEditingController nameController = TextEditingController();
     final TextEditingController priceController = TextEditingController();
 
     return Row(
       children: [
-        Expanded(
-          child: TextField(
-            controller: idController,
-            decoration: const InputDecoration(labelText: 'Product ID'),
-          ),
-        ),
         Expanded(
           child: TextField(
             controller: nameController,
@@ -176,11 +161,10 @@ class _OnSalesState extends State<OnSales> {
           onPressed: () {
             setState(() {
               products.add(Product(
-                id: idController.text,
                 name: nameController.text,
                 price: double.parse(priceController.text),
               ));
-              idController.clear();
+
               nameController.clear();
               priceController.clear();
             });
@@ -193,7 +177,7 @@ class _OnSalesState extends State<OnSales> {
 
   void _saveProduct(Product product) {
     // Use the logger to log the saved product
-    logger.i("Saved: ${product.id} - ${product.name} with price ${product.price}");
+    logger.i("Saved: ${product.name} with price ${product.price}");
   }
 
   void _showDailyProducts(BuildContext context) {
@@ -248,11 +232,10 @@ class _OnSalesState extends State<OnSales> {
 }
 
 class Product {
-  String id; // Added ID field
   String name;
   double price;
 
-  Product({required this.id, required this.name, required this.price});
+  Product({ required this.name, required this.price});
 }
 
 void main() {

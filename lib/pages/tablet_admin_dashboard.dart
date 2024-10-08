@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:otop_front/components/add_product_screen.dart';
+// import 'package:otop_front/components/add_product_screen.dart';
+// import 'package:otop_front/components/admin_sales.dart';
 import 'package:otop_front/components/on_sales.dart';
 import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/components/transactions.dart';
@@ -115,12 +116,12 @@ class _TabletAdminDashboardState extends State<TabletAdminDashboard> {
                       ListTile(
                         leading: Icon(Icons.home),
                         title: Text(
-                          'My Product',
+                          'Sales',
                           style: TextStyle(fontSize: 13),
                         ),
                         onTap: () {
                           setState(() {
-                            _currentWidget = AddProductScreen();
+                            // _currentWidget = CustomContainerAdmin();
                           });
                         },
                       ),

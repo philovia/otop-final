@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+// import 'package:otop_front/components/admin_sales.dart';
 // import 'package:otop_app/components/admin_on_sales.dart';
+import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_app/components/admin_orders.dart';
 // import 'package:otop_app/components/admin_purchases.dart';
 // import 'package:otop_app/components/admin_sales.dart';
@@ -19,7 +21,7 @@ class MobileAdminDashboard extends StatefulWidget {
 
 
 class _MobileAdminDashboardState extends State<MobileAdminDashboard> {
-  // Widget _currentWidget = const AdminSales();
+  Widget _currentWidget = OnSales();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +53,7 @@ class _MobileAdminDashboardState extends State<MobileAdminDashboard> {
                 ),
                 onTap: () {
                   setState(() {
-                    // _currentWidget = const AdminSales();
+                    _currentWidget = OnSales();
                   });
                   Navigator.of(context).pop(); // Close the drawer
                 },
@@ -105,9 +107,9 @@ class _MobileAdminDashboardState extends State<MobileAdminDashboard> {
         child: Container(
           constraints: const BoxConstraints(maxWidth: 1700),
           padding: const EdgeInsets.all(16),
-          child: const Align(
+          child: Align(
             alignment: Alignment.center,
-            // child: _currentWidget,
+            child: _currentWidget,
           ),
         ),
       ), // Display the selected widget (default is the dashboard content)

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:otop_front/components/custom_container_cashier.dart';
+import 'package:otop_front/components/custom_container_receipts.dart';
 import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_front/components/add_product_screen.dart';
-import 'package:otop_front/components/reports.dart';
+// import 'package:otop_front/components/reports.dart';
 import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/components/transactions.dart';
 import 'package:otop_front/responsive/constant.dart';
@@ -22,6 +24,12 @@ class _TabletCashierDashboardState extends State<TabletCashierDashboard> {
 
   // Instance of AuthService
   final AuthService _authService = AuthService();
+
+  // Add these variables
+  double totalPrice = 0.0; // Initialize totalPrice
+  int totalStock = 0; // Initialize totalStock
+  List<dynamic> cartItems = []; // Initialize cartItems as needed
+  int productCount = 0; // Initialize productCount
 
   // Function to handle logout
  Future<void> _logout() async {
@@ -121,24 +129,24 @@ class _TabletCashierDashboardState extends State<TabletCashierDashboard> {
                       ListTile(
                         leading: Icon(Icons.home),
                         title: Text(
-                          'Reports',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _currentWidget = ReportList();
-                          });
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.shopping_bag),
-                        title: Text(
-                          'Suppliers',
+                         'Suppliers',
                           style: TextStyle(fontSize: 13),
                         ),
                         onTap: () {
                           setState(() {
                             _currentWidget = SupplierList();
+                          });
+                        },
+                      ),
+                     ListTile(
+                        leading: Icon(Icons.shopping_bag),
+                        title: Text(
+                          'Purchase',
+                          style: TextStyle(fontSize: 13),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _currentWidget = CustomContainerCashier();
                           });
                         },
                       ),
@@ -166,6 +174,23 @@ class _TabletCashierDashboardState extends State<TabletCashierDashboard> {
                           });
                         },
                       ),
+                        ListTile(
+                        leading: Icon(Icons.home),
+                        title: Text(
+                          'Receipts',
+                          style: TextStyle(fontSize: 13),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _currentWidget = CustomContainerReceipts(
+                              totalPrice: totalPrice,
+                              productCount: productCount,
+                              totalStock: totalStock,
+                              cartItems: [],
+                            );
+                          });
+                        },
+                      ),
                       Spacer(),
                       ListTile(
                         leading: Icon(Icons.logout),
@@ -184,9 +209,9 @@ class _TabletCashierDashboardState extends State<TabletCashierDashboard> {
                     child: Container(
                       constraints: const BoxConstraints(maxWidth: 1100),
                     
-                      padding: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
+                        // borderRadius: BorderRadius.circular(15),
                       ),
                       child: Align(
                         alignment: Alignment.center,

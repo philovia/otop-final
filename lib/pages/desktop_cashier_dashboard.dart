@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:otop_front/components/custom_container_cashier.dart';
+import 'package:otop_front/components/custom_container_receipts.dart';
 import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_front/components/on_sales.dart';  
 // import 'package:otop_front/components/add_product_screen.dart';
-import 'package:otop_front/components/reports.dart';
+// import 'package:otop_front/components/reports.dart';
 import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/components/transactions.dart';
 import 'package:otop_front/responsive/constant.dart';
@@ -25,6 +26,12 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
 
   // Instance of AuthService
   final AuthService _authService = AuthService();
+
+   // Add these variables
+  double totalPrice = 0.0; // Initialize totalPrice
+  int totalStock = 0; // Initialize totalStock
+  List<dynamic> cartItems = []; // Initialize cartItems as needed
+  int productCount = 0; // Initialize productCount
 
   // Function to handle logout
  Future<void> _logout() async {
@@ -167,12 +174,17 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                       ListTile(
                         leading: Icon(Icons.home),
                         title: Text(
-                          'Reports',
+                          'Receipts',
                           style: TextStyle(fontSize: 13),
                         ),
                         onTap: () {
                           setState(() {
-                            _currentWidget = ReportList();
+                            _currentWidget = CustomContainerReceipts(
+                              totalPrice: totalPrice,
+                              productCount: productCount,
+                              totalStock: totalStock,
+                              cartItems: [],
+                            );
                           });
                         },
                       ),
@@ -194,9 +206,10 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                     child: Container(
                       constraints: const BoxConstraints(maxWidth: 1700),
                     
-                      padding: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(10),  
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
+                        // borderRadius: BorderRadius.only(topLeft:Radius.circular(20.0),
+                        // topRight: Radius.circular(20.0),)
                       ),
                       child: Align(
                         alignment: Alignment.center,
