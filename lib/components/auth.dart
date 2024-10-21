@@ -31,7 +31,8 @@ class _AuthFormState extends State<AuthForm> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
   final String apiUrl = 'http://127.0.0.1:8083/api';
@@ -42,7 +43,8 @@ class _AuthFormState extends State<AuthForm> {
     });
   }
 
-  TextField _buildTextField(TextEditingController controller, String label, {bool obscureText = false}) {
+  TextField _buildTextField(TextEditingController controller, String label,
+      {bool obscureText = false}) {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
@@ -164,7 +166,6 @@ class _AuthFormState extends State<AuthForm> {
             color: const Color.fromARGB(194, 255, 255, 255),
             border: Border.all(color: Colors.indigo),
             borderRadius: BorderRadius.circular(10),
-            
           ),
           width: 300,
           child: SingleChildScrollView(
@@ -182,7 +183,8 @@ class _AuthFormState extends State<AuthForm> {
                 Center(
                   child: Text(
                     _isLogin ? 'Login' : 'Register',
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -194,10 +196,13 @@ class _AuthFormState extends State<AuthForm> {
                 ],
                 _buildTextField(_emailController, 'Email'),
                 const SizedBox(height: 10),
-                _buildTextField(_passwordController, 'Password', obscureText: true),
+                _buildTextField(_passwordController, 'Password',
+                    obscureText: true),
                 if (!_isLogin) ...[
                   const SizedBox(height: 10),
-                  _buildTextField(_confirmPasswordController, 'Confirm Password', obscureText: true),
+                  _buildTextField(
+                      _confirmPasswordController, 'Confirm Password',
+                      obscureText: true),
                 ],
                 const SizedBox(height: 10),
                 SizedBox(
@@ -224,7 +229,9 @@ class _AuthFormState extends State<AuthForm> {
                   child: GestureDetector(
                     onTap: _toggleForm,
                     child: Text(
-                      _isLogin ? "Don't have an account? Sign Up" : 'Already have an account? Login',
+                      _isLogin
+                          ? "Don't have an account? Sign Up"
+                          : 'Already have an account? Login',
                       style: const TextStyle(color: Colors.blue),
                     ),
                   ),
@@ -241,7 +248,8 @@ class _AuthFormState extends State<AuthForm> {
 class AuthService {
   Future<void> logout(BuildContext context, String token) async {
     final response = await http.post(
-      Uri.parse('http://127.0.0.1:8083/api/logout'), // Replace with your API URL
+      Uri.parse(
+          'http://127.0.0.1:8083/api/logout'), // Replace with your API URL
       headers: {
         'Authorization': 'Bearer $token',
       },

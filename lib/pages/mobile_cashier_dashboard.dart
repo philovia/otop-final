@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:otop_front/components/auth.dart';
-import 'package:otop_front/components/custom_container_receipts.dart';
+// import 'package:otop_front/components/custom_container_supselect.dart';
 import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_front/components/reports.dart';
-import 'package:otop_front/components/supplier_list.dart';
+// import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/components/transactions.dart';
+import 'package:otop_front/widget/supplier_product_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../components/custom_container_cashier.dart';
+import '../components/custom_container_addsup.dart';
 // import 'package:otop_app/components/admin_sales.dart';
 // import 'package:otop_app/components/admin_on_sales.dart';
 // import 'package:otop_app/components/cashier_supplies.dart';
 // import 'package:otop_app/responsive/constants.dart';
 
-
 class MobileCashierDashboard extends StatefulWidget {
   const MobileCashierDashboard({super.key});
-
 
   @override
   State<MobileCashierDashboard> createState() => _MobileCashierDashboardState();
 }
 
-
 class _MobileCashierDashboardState extends State<MobileCashierDashboard> {
-  Widget _currentWidget = SupplierList();
+  Widget _currentWidget = SupplierListPage();
 
-   // Instance of AuthService
+  // Instance of AuthService
   final AuthService _authService = AuthService();
 
   // Add these variables
@@ -36,28 +34,29 @@ class _MobileCashierDashboardState extends State<MobileCashierDashboard> {
   int productCount = 0; // Initialize productCount
 
   // Function to handle logout
- Future<void> _logout() async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  final String? token = prefs.getString('token'); // Retrieve your token here
+  Future<void> _logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token'); // Retrieve your token here
 
-  try {
-     // Call the logout method without passing context
-   // ignore: use_build_context_synchronously
-   await _authService.logout(context, token!);
-    // After the logout, check if the widget is still mounted before using context
-    if (mounted) {
-      // Show a success message or navigate to the login screen
-      Navigator.of(context).pushReplacementNamed('/login'); // Adjust based on your routing
-    }
-  } catch (e) {
-    // Check if the widget is still mounted before showing a Snackbar
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),
-      );
+    try {
+      // Call the logout method without passing context
+      // ignore: use_build_context_synchronously
+      await _authService.logout(context, token!);
+      // After the logout, check if the widget is still mounted before using context
+      if (mounted) {
+        // Show a success message or navigate to the login screen
+        Navigator.of(context)
+            .pushReplacementNamed('/login'); // Adjust based on your routing
+      }
+    } catch (e) {
+      // Check if the widget is still mounted before showing a Snackbar
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString())),
+        );
+      }
     }
   }
-}
 
   // Function to show confirmation dialog before logout
   void _showLogoutConfirmationDialog() {
@@ -104,7 +103,7 @@ class _MobileCashierDashboardState extends State<MobileCashierDashboard> {
               DrawerHeader(
                 child: Image.asset(
                   'images/otopph.png',
-                 height: 150,
+                  height: 150,
                   width: 150,
                 ),
               ),
@@ -116,74 +115,73 @@ class _MobileCashierDashboardState extends State<MobileCashierDashboard> {
                 ),
                 onTap: () {
                   setState(() {
-                    _currentWidget = const SupplierList();
+                    // _currentWidget = const SupplierList();
                   });
                   Navigator.of(context).pop();
                 },
               ),
               ListTile(
-                        leading: Icon(Icons.shopping_bag),
-                        title: Text(
-                          'Purchase',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _currentWidget = CustomContainerCashier();
-                          });
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.add_box),
-                        title: Text(
-                          'Transactions',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _currentWidget = MyTransaction();
-                          });
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.shopping_bag),
-                        title: Text(
-                          'On Sales',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _currentWidget = OnSales();
-                          });
-                        },
-                      ),
-                       ListTile(
-                        leading: Icon(Icons.home),
-                        title: Text(
-                          'Receipts',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _currentWidget = CustomContainerReceipts(
-                              totalPrice: totalPrice,
-                              productCount: productCount,
-                              totalStock: totalStock,
-                              cartItems: [],
-                            );
-                          });
-                        },
-                      ),
-                      Spacer(),
-                      ListTile(
-                        leading: Icon(Icons.logout),
-                        title: Text(
-                          'Logout',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                        onTap: _showLogoutConfirmationDialog,
-                      ),
-                      
+                leading: Icon(Icons.shopping_bag),
+                title: Text(
+                  'Purchase',
+                  style: TextStyle(fontSize: 13),
+                ),
+                onTap: () {
+                  setState(() {
+                    _currentWidget = CustomContainerCashier();
+                  });
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.add_box),
+                title: Text(
+                  'Transactions',
+                  style: TextStyle(fontSize: 13),
+                ),
+                onTap: () {
+                  setState(() {
+                    _currentWidget = MyTransaction();
+                  });
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.shopping_bag),
+                title: Text(
+                  'On Sales',
+                  style: TextStyle(fontSize: 13),
+                ),
+                onTap: () {
+                  setState(() {
+                    _currentWidget = OnSales();
+                  });
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text(
+                  'Receipts',
+                  style: TextStyle(fontSize: 13),
+                ),
+                onTap: () {
+                  setState(() {
+                    // _currentWidget = CustomContainerReceipts(
+                    //   totalPrice: totalPrice,
+                    //   productCount: productCount,
+                    //   totalStock: totalStock,
+                    //   cartItems: [],
+                    // );
+                  });
+                },
+              ),
+              Spacer(),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text(
+                  'Logout',
+                  style: TextStyle(fontSize: 13),
+                ),
+                onTap: _showLogoutConfirmationDialog,
+              ),
             ],
           ),
         ),
@@ -201,6 +199,3 @@ class _MobileCashierDashboardState extends State<MobileCashierDashboard> {
     );
   }
 }
-
-
-
