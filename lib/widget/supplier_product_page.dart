@@ -18,8 +18,8 @@ class _SupplierListPageState extends State<SupplierListPage> {
   @override
   void initState() {
     super.initState();
-    _supplierService =
-        SupplierService('https://your-api-url.com'); // Set your base URL
+    _supplierService = SupplierService(
+        'http://127.0.0.1:8083/admin/suppliers'); // Set your base URL
     _suppliersFuture = _supplierService.fetchSuppliers();
   }
 

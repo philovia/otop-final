@@ -20,11 +20,11 @@ class _SupplierFormState extends State<SupplierForm> {
   final _formKey = GlobalKey<FormState>();
 
   // Form field controllers
-  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _storeNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _contactController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   final AddSupplierService _userService =
       AddSupplierService(); // Instantiate the UserService
@@ -34,11 +34,11 @@ class _SupplierFormState extends State<SupplierForm> {
     if (_formKey.currentState!.validate()) {
       // Collect form data
       Map<String, String> userData = {
-        'username': _usernameController.text,
         'store_name': _storeNameController.text,
         'email': _emailController.text,
-        'contact': _contactController.text,
+        'phone_number': _phoneNumberController.text,
         'address': _addressController.text,
+        'password': _passwordController.text
       };
 
       // Call the user service to register the user
@@ -68,16 +68,6 @@ class _SupplierFormState extends State<SupplierForm> {
             child: Column(
               children: [
                 TextFormField(
-                  controller: _usernameController,
-                  decoration: InputDecoration(labelText: 'Username'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a username';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
                   controller: _storeNameController,
                   decoration: InputDecoration(labelText: 'Store Name'),
                   validator: (value) {
@@ -102,8 +92,8 @@ class _SupplierFormState extends State<SupplierForm> {
                   },
                 ),
                 TextFormField(
-                  controller: _contactController,
-                  decoration: InputDecoration(labelText: 'Contact Number'),
+                  controller: _phoneNumberController,
+                  decoration: InputDecoration(labelText: 'Phone Number'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a contact number';
@@ -117,6 +107,16 @@ class _SupplierFormState extends State<SupplierForm> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter an address';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(labelText: 'Password'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
                     }
                     return null;
                   },

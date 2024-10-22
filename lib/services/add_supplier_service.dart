@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:logging/logging.dart' as logging;
 
 class AddSupplierService {
-  final String apiUrl = 'https://your-backend-api.com/register';
+  final String apiUrl = 'http://127.0.0.1:8083/admin/supplier';
 
   // Initialize logger
   final log = logging.Logger('UserService');
