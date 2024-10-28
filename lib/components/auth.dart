@@ -140,6 +140,15 @@ class _AuthFormState extends State<AuthForm> {
     await prefs.setString('token', token);
   }
 
+  Future<void> _loadToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    if (token != null) {
+      // If there's a token, redirect the user based on their role
+      // Implement your logic to fetch role from backend or decode token if it includes role info
+    }
+  }
+
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
@@ -150,6 +159,12 @@ class _AuthFormState extends State<AuthForm> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadToken();
   }
 
   @override
@@ -248,8 +263,7 @@ class _AuthFormState extends State<AuthForm> {
 class AuthService {
   Future<void> logout(BuildContext context, String token) async {
     final response = await http.post(
-      Uri.parse(
-          'http://127.0.0.1:8083/api/logout'), // Replace with your API URL
+      Uri.parse('http://127.0.0.1:8083/api/logout'),
       headers: {
         'Authorization': 'Bearer $token',
       },

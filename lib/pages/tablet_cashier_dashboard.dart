@@ -20,7 +20,7 @@ class TabletCashierDashboard extends StatefulWidget {
 }
 
 class _TabletCashierDashboardState extends State<TabletCashierDashboard> {
-  Widget _currentWidget = SupplierListPage();
+  Widget _currentWidget = SupplierListWidget();
 
   // Instance of AuthService
   final AuthService _authService = AuthService();

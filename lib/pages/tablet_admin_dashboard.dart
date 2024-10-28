@@ -18,7 +18,7 @@ class TabletAdminDashboard extends StatefulWidget {
 }
 
 class _TabletAdminDashboardState extends State<TabletAdminDashboard> {
-  Widget _currentWidget = SupplierListPage();
+  Widget _currentWidget = SupplierListWidget();
 
   // Instance of AuthService
   final AuthService _authService = AuthService();

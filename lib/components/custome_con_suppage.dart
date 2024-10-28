@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:otop_front/widget/supplier_product_page.dart';
-// import 'package:otop_front/widget/supplier_form.dart';
-// import 'package:otop_front/widget/pos_widget.dart';
+// import 'package:otop_front/widget/supp_page.dart';
 
-class CustomContainerSupselect extends StatelessWidget {
-  const CustomContainerSupselect({super.key});
+class CustomeConSuppage extends StatelessWidget {
+  const CustomeConSuppage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +55,7 @@ class CustomContainerSupselect extends StatelessWidget {
             ],
           ),
           // to put the listview inside the container
-          child: SupplierListWidget(),
+          // child: SuppPage(supplier: supplier)
         ),
       ),
     );
@@ -66,6 +64,6 @@ class CustomContainerSupselect extends StatelessWidget {
 
 void main() {
   runApp(
-    MaterialApp(home: CustomContainerSupselect()),
+    MaterialApp(home: CustomeConSuppage()),
   );
 }

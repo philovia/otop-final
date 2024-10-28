@@ -1,30 +1,21 @@
-// supplier_list_page.dart
-
-// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:otop_front/services/supplier_product_service.dart';
-import 'package:otop_front/models/supplier_model.dart';
+import 'package:otop_front/services/add_supplier_service.dart';
+import 'package:otop_front/widget/supp_page.dart';
 
-class SupplierListPage extends StatefulWidget {
+class SupplierListWidget extends StatefulWidget {
+  const SupplierListWidget({super.key});
+
   @override
-  _SupplierListPageState createState() => _SupplierListPageState();
+  _SupplierListWidgetState createState() => _SupplierListWidgetState();
 }
 
-class _SupplierListPageState extends State<SupplierListPage> {
-  late SupplierService _supplierService;
-  late Future<List<Supplier>> _suppliersFuture;
+class _SupplierListWidgetState extends State<SupplierListWidget> {
+  final AddSupplierService _supplierService = AddSupplierService();
 
-  @override
-  void initState() {
-    super.initState();
-    _supplierService = SupplierService(
-        'http://127.0.0.1:8083/admin/suppliers'); // Set your base URL
-    _suppliersFuture = _supplierService.fetchSuppliers();
-  }
-
-  // Function to show supplier details
-  void showSupplierDetails(Supplier supplier) {
+  // Function to display supplier details in a pop-up dialog
+  void _showSupplierDetails(Map<String, dynamic> supplier) {
     showDialog(
       context: context,
       builder: (context) {
@@ -33,16 +24,10 @@ class _SupplierListPageState extends State<SupplierListPage> {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Store Name: ${supplier.storeName}'),
-              // You can add more details here if needed
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  // Optionally navigate to an edit page here
-                },
-                child: Text('Edit Details'),
-              ),
+              Text('Store Name: ${supplier['store_name'] ?? 'N/A'}'),
+              Text('Email: ${supplier['email'] ?? 'N/A'}'),
+              Text('Phone Number: ${supplier['phone_number'] ?? 'N/A'}'),
+              Text('Address: ${supplier['address'] ?? 'N/A'}'),
             ],
           ),
           actions: [
@@ -50,7 +35,7 @@ class _SupplierListPageState extends State<SupplierListPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Close'),
+              child: const Text('Close'),
             ),
           ],
         );
@@ -61,47 +46,59 @@ class _SupplierListPageState extends State<SupplierListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: Text('Supplier List')),
-      body: FutureBuilder<List<Supplier>>(
-        future: _suppliersFuture,
+      body: FutureBuilder<List<Map<String, dynamic>>?>(
+        future: _supplierService.fetchAllSuppliers(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(
+              child: Text('Error fetching suppliers: ${snapshot.error}'),
+            );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No suppliers found.'));
+            return const Center(child: Text('No suppliers found.'));
           } else {
             final suppliers = snapshot.data!;
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(
-                child: DataTable(
-                  columns: const [
-                    DataColumn(label: Text('Store Name')),
-                    DataColumn(label: Text('Actions')),
-                  ],
-                  rows: suppliers.map((supplier) {
-                    return DataRow(cells: [
-                      DataCell(
-                        Text(supplier.storeName),
-                        onTap: () {
-                          showSupplierDetails(supplier); // Show details on tap
-                        },
-                      ),
-                      DataCell(
-                        IconButton(
-                          icon: Icon(Icons.info),
-                          onPressed: () {
-                            showSupplierDetails(
-                                supplier); // Show details on icon press
-                          },
-                        ),
-                      ),
-                    ]);
-                  }).toList(),
-                ),
+            return ListView.separated(
+              itemCount: suppliers.length,
+              separatorBuilder: (context, index) => Divider(
+                thickness: 0.5,
+                height: 8.0,
               ),
+              itemBuilder: (context, index) {
+                final supplier = suppliers[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: ListTile(
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: GestureDetector(
+                      onTap: () {
+                        // Navigate to the supplier detail page
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => SuppPage(supplier: supplier),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        supplier['store_name'] ?? 'Unknown Supplier',
+                        style: const TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 47, 47, 49)),
+                      ),
+                    ),
+                    trailing: TextButton(
+                      onPressed: () => _showSupplierDetails(supplier),
+                      child: const Text(
+                        'See Details',
+                        style: TextStyle(fontSize: 12.0),
+                      ),
+                    ),
+                  ),
+                );
+              },
             );
           }
         },

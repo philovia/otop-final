@@ -3,11 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:otop_front/components/custom_container_addsup.dart';
 import 'package:otop_front/components/custom_container_supselect.dart';
+import 'package:otop_front/components/custome_con_suppage.dart';
 import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/components/transactions.dart';
 import 'package:otop_front/responsive/constant.dart';
 import 'package:otop_front/services/logout_services.dart';
+// import 'package:otop_front/widget/supp_page.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -175,9 +177,8 @@ class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
                                   horizontal: 52, vertical: 0),
                               onTap: () {
                                 setState(() {
-                                  // _currentWidget = SupplierList();
-                                  _isSuppliersExpanded =
-                                      false; // Close dropdown
+                                  _currentWidget = CustomeConSuppage();
+                                  _isSuppliersExpanded = false;
                                 });
                               },
                             ),

@@ -88,7 +88,7 @@ class TransactionListState extends State<TransactionList> {
                 final cashier = cashierController.text;
                 final date = dateController.text;
                 if (cashier.isNotEmpty && date.isNotEmpty) {
-                  addTransaction(cashier, date); // Call the method to add transaction
+                  addTransaction(cashier, date);
                   Navigator.of(context).pop();
                 }
               },
@@ -104,7 +104,8 @@ class TransactionListState extends State<TransactionList> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        double cardWidth = constraints.maxWidth < 400 ? constraints.maxWidth : 400;
+        double cardWidth =
+            constraints.maxWidth < 400 ? constraints.maxWidth : 400;
 
         return Column(
           children: [

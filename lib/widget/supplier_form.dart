@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart' as logging;
 import 'package:otop_front/services/add_supplier_service.dart';
 
-// Initialize logger
+// logger for the Service form widget
 final log = logging.Logger('ServiceFormWidget');
 
 class SupplierForm extends StatefulWidget {
@@ -26,8 +26,7 @@ class _SupplierFormState extends State<SupplierForm> {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  final AddSupplierService _userService =
-      AddSupplierService(); // Instantiate the UserService
+  final AddSupplierService _userService = AddSupplierService();
 
   // Function to handle form submission
   Future<void> handleSubmit() async {
