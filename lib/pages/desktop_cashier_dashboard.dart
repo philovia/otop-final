@@ -1,16 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:otop_front/components/custom_container_addsup.dart';
-// import 'package:otop_front/components/custom_container_supselect.dart';
-import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_front/components/on_sales.dart';
-// import 'package:otop_front/components/add_product_screen.dart';
-// import 'package:otop_front/components/reports.dart';
-// import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/components/transactions.dart';
 import 'package:otop_front/responsive/constant.dart';
 import 'package:otop_front/services/logout_services.dart';
-import 'package:otop_front/widget/supplier_product_page.dart';
-// import 'package:otop_front/widget/pos_widget.dart';
+import 'package:otop_front/widget/pos_widget.dart';
+// import 'package:otop_front/widget/supplier_product_page.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,7 +20,7 @@ class DesktopCashierDashboard extends StatefulWidget {
 }
 
 class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
-  Widget _currentWidget = SupplierListWidget();
+  Widget _currentWidget = POSScreen();
 
   // Instance of AuthService
   final AuthService _authService = AuthService();
@@ -31,26 +28,20 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
   // Add these variables
   double totalPrice = 0.0; // Initialize totalPrice
   int totalStock = 0; // Initialize totalStock
-  List<dynamic> cartItems = []; // Initialize cartItems as needed
-  int productCount = 0; // Initialize productCount
+  List<dynamic> cartItems = [];
+  int productCount = 0;
 
   // Function to handle logout
   Future<void> _logout() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('token'); // Retrieve your token here
+    final String? token = prefs.getString('token');
 
     try {
-      // Call the logout method without passing context
-      // ignore: use_build_context_synchronously
       await _authService.logout(context, token!);
-      // After the logout, check if the widget is still mounted before using context
       if (mounted) {
-        // Show a success message or navigate to the login screen
-        Navigator.of(context)
-            .pushReplacementNamed('/login'); // Adjust based on your routing
+        Navigator.of(context).pushReplacementNamed('/login');
       }
     } catch (e) {
-      // Check if the widget is still mounted before showing a Snackbar
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.toString())),
@@ -59,7 +50,6 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
     }
   }
 
-  // Function to show confirmation dialog before logout
   void _showLogoutConfirmationDialog() {
     showDialog(
       context: context,
@@ -70,7 +60,7 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
               },
               child: Text('Cancel'),
             ),
@@ -131,15 +121,16 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                       ListTile(
                         leading: Icon(Icons.shopping_bag),
                         title: Text(
-                          'Suppliers',
+                          'P O S',
                           style: TextStyle(fontSize: 13),
                         ),
                         onTap: () {
                           setState(() {
-                            // _currentWidget = SupplierList();
+                            _currentWidget = POSScreen();
                           });
                         },
                       ),
+                      Divider(color: const Color.fromARGB(207, 88, 86, 86)),
                       ListTile(
                         leading: Icon(Icons.shopping_bag),
                         title: Text(
@@ -152,6 +143,7 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                           });
                         },
                       ),
+                      Divider(color: const Color.fromARGB(207, 88, 86, 86)),
                       ListTile(
                         leading: Icon(Icons.add_box),
                         title: Text(
@@ -161,35 +153,6 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                         onTap: () {
                           setState(() {
                             _currentWidget = MyTransaction();
-                          });
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.shopping_bag),
-                        title: Text(
-                          'On Sales',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _currentWidget = OnSales();
-                          });
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.home),
-                        title: Text(
-                          'Receipts',
-                          style: TextStyle(fontSize: 13),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            // _currentWidget = CustomContainerReceipts(
-                            //   totalPrice: totalPrice,
-                            //   productCount: productCount,
-                            //   totalStock: totalStock,
-                            //   cartItems: [],
-                            // );
                           });
                         },
                       ),

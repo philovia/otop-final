@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+// import 'package:logging/logging.dart';
+import 'package:logger/logger.dart';
 import 'package:otop_front/pages/desktop_admin_dashboard.dart'; // Import your admin dashboard
 import 'package:otop_front/pages/desktop_cashier_dashboard.dart';
 import 'package:otop_front/pages/desktop_supplier_dashboard.dart';
@@ -261,19 +263,35 @@ class _AuthFormState extends State<AuthForm> {
 }
 
 class AuthService {
+  final Logger _logger = Logger();
   Future<void> logout(BuildContext context, String token) async {
-    final response = await http.post(
-      Uri.parse('http://127.0.0.1:8083/api/logout'),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
-    );
+    try {
+      final response = await http.post(
+        Uri.parse('http://127.0.0.1:8083/api/logout'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
 
-    if (response.statusCode == 200) {
-      if (!context.mounted) return;
-      Navigator.pushReplacementNamed(context, '/login');
-    } else {
-      throw Exception(json.decode(response.body)['error'] ?? 'Logout failed');
+      if (response.statusCode == 200) {
+        if (!context.mounted) return;
+        Navigator.pushReplacementNamed(context, '/login');
+      } else {
+        // Attempt to parse the error as JSON, if possible
+        try {
+          final errorMessage =
+              json.decode(response.body)['error'] ?? 'Logout failed';
+          throw Exception(errorMessage);
+        } catch (e) {
+          // Handle cases where response is not JSON
+          throw Exception("Unexpected response format: ${response.body}");
+        }
+      }
+    } catch (e) {
+      // Handle any unexpected errors here (e.g., network issues)
+      _logger.e("Logout error: $e");
+      throw Exception("An error occurred during logout");
     }
   }
 }

@@ -25,5 +25,5 @@ class ApiConstants {
   static const String getProductByName = '$supplierBaseUrl/products/name';
 
   // Cashier Routes
-  // static const String getProductByName = '$cashierBaseUrl/cashier';
+  static const String getProductName = '$supplierBaseUrl/cashier/name';
 }
