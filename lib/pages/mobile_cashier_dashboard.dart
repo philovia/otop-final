@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:otop_front/components/auth.dart';
+// import 'package:otop_front/components/auth.dart';
 // import 'package:otop_front/components/custom_container_supselect.dart';
 import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_front/components/reports.dart';
 // import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/components/transactions.dart';
 import 'package:otop_front/widget/supplier_product_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/custom_container_addsup.dart';
 // import 'package:otop_app/components/admin_sales.dart';
@@ -25,7 +25,7 @@ class _MobileCashierDashboardState extends State<MobileCashierDashboard> {
   Widget _currentWidget = SupplierListWidget();
 
   // Instance of AuthService
-  final AuthService _authService = AuthService();
+  // final AuthService _authService = AuthService();
 
   // Add these variables
   double totalPrice = 0.0; // Initialize totalPrice
@@ -34,29 +34,29 @@ class _MobileCashierDashboardState extends State<MobileCashierDashboard> {
   int productCount = 0; // Initialize productCount
 
   // Function to handle logout
-  Future<void> _logout() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('token'); // Retrieve your token here
+  // Future<void> _logout() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final String? token = prefs.getString('token'); // Retrieve your token here
 
-    try {
-      // Call the logout method without passing context
-      // ignore: use_build_context_synchronously
-      await _authService.logout(context, token!);
-      // After the logout, check if the widget is still mounted before using context
-      if (mounted) {
-        // Show a success message or navigate to the login screen
-        Navigator.of(context)
-            .pushReplacementNamed('/login'); // Adjust based on your routing
-      }
-    } catch (e) {
-      // Check if the widget is still mounted before showing a Snackbar
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.toString())),
-        );
-      }
-    }
-  }
+  //   try {
+  //     // Call the logout method without passing context
+  //     // ignore: use_build_context_synchronously
+  //     // await _authService.logout(context, token!);
+  //     // After the logout, check if the widget is still mounted before using context
+  //     if (mounted) {
+  //       // Show a success message or navigate to the login screen
+  //       Navigator.of(context)
+  //           .pushReplacementNamed('/login'); // Adjust based on your routing
+  //     }
+  //   } catch (e) {
+  //     // Check if the widget is still mounted before showing a Snackbar
+  //     if (mounted) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text(e.toString())),
+  //       );
+  //     }
+  //   }
+  // }
 
   // Function to show confirmation dialog before logout
   void _showLogoutConfirmationDialog() {
@@ -76,7 +76,7 @@ class _MobileCashierDashboardState extends State<MobileCashierDashboard> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
-                _logout(); // Call the logout function
+                // _logout(); // Call the logout function
               },
               child: Text('Yes'),
             ),

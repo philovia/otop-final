@@ -38,11 +38,11 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
 
     try {
       await _authService.logout(context, token!);
-      if (mounted) {
+      if (!mounted) {
         Navigator.of(context).pushReplacementNamed('/login');
       }
     } catch (e) {
-      if (mounted) {
+      if (!mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.toString())),
         );
@@ -66,8 +66,8 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-                _logout(); // Call the logout function
+                Navigator.of(context).pop();
+                _logout();
               },
               child: Text('Yes'),
             ),

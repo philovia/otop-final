@@ -25,28 +25,29 @@ class _DesktopSupplierDashboardState extends State<DesktopSupplierDashboard> {
   final AuthService _authService = AuthService();
 
   // Function to handle logout
- Future<void> _logout() async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  final String? token = prefs.getString('token'); // Retrieve your token here
+  Future<void> _logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token'); // Retrieve your token here
 
-  try {
-     // Call the logout method without passing context
-   // ignore: use_build_context_synchronously
-   await _authService.logout(context, token!);
-    // After the logout, check if the widget is still mounted before using context
-    if (mounted) {
-      // Show a success message or navigate to the login screen
-      Navigator.of(context).pushReplacementNamed('/login'); // Adjust based on your routing
-    }
-  } catch (e) {
-    // Check if the widget is still mounted before showing a Snackbar
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),
-      );
+    try {
+      // Call the logout method without passing context
+      // ignore: use_build_context_synchronously
+      await _authService.logout(context, token!);
+      // After the logout, check if the widget is still mounted before using context
+      if (mounted) {
+        // Show a success message or navigate to the login screen
+        Navigator.of(context)
+            .pushReplacementNamed('/login'); // Adjust based on your routing
+      }
+    } catch (e) {
+      // Check if the widget is still mounted before showing a Snackbar
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString())),
+        );
+      }
     }
   }
-}
 
   // Function to show confirmation dialog before logout
   void _showLogoutConfirmationDialog() {
@@ -96,7 +97,10 @@ class _DesktopSupplierDashboardState extends State<DesktopSupplierDashboard> {
                   ),
                   SizedBox(width: 575),
                   Text('SUPPLIER DASHBOARD',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white)),
                 ],
               ),
               backgroundColor: Color.fromARGB(255, 16, 136, 165),
@@ -126,6 +130,9 @@ class _DesktopSupplierDashboardState extends State<DesktopSupplierDashboard> {
                           });
                         },
                       ),
+                      Divider(
+                        color: Color.fromARGB(207, 88, 86, 86),
+                      ),
                       ListTile(
                         leading: Icon(Icons.shopping_bag),
                         title: Text(
@@ -138,6 +145,9 @@ class _DesktopSupplierDashboardState extends State<DesktopSupplierDashboard> {
                           });
                         },
                       ),
+                      Divider(
+                        color: Color.fromARGB(207, 88, 86, 86),
+                      ),
                       ListTile(
                         leading: Icon(Icons.add_box),
                         title: Text(
@@ -149,6 +159,9 @@ class _DesktopSupplierDashboardState extends State<DesktopSupplierDashboard> {
                             _currentWidget = MyTransaction();
                           });
                         },
+                      ),
+                      Divider(
+                        color: Color.fromARGB(207, 88, 86, 86),
                       ),
                       ListTile(
                         leading: Icon(Icons.shopping_bag_rounded),
@@ -179,14 +192,12 @@ class _DesktopSupplierDashboardState extends State<DesktopSupplierDashboard> {
                   child: Center(
                     child: Container(
                       constraints: const BoxConstraints(maxWidth: 1700),
-                    
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.0),
-                          topRight: Radius.circular(20.0),
-                        )
-                      ),
+                          borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
+                      )),
                       child: Align(
                         alignment: Alignment.center,
                         child: _currentWidget,
