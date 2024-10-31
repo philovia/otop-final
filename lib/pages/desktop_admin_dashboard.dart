@@ -178,7 +178,9 @@ class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
                                   horizontal: 52, vertical: 0),
                               onTap: () {
                                 setState(() {
-                                  _currentWidget = CustomeConSuppage();
+                                  _currentWidget = CustomeConSuppage(
+                                    supplier: {},
+                                  );
                                   _isSuppliersExpanded = false;
                                 });
                               },

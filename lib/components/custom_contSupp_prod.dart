@@ -3,9 +3,20 @@
 import 'package:flutter/material.dart';
 import 'package:otop_front/widget_pos/bar_chart.dart';
 import 'package:otop_front/widget_pos/chart_admin.dart';
+import 'package:otop_front/widget_pos/chart_bar.dart';
+import 'package:otop_front/widget_pos/sample_chart.dart';
 
 class CustomContsuppProd extends StatelessWidget {
-  const CustomContsuppProd({super.key});
+  CustomContsuppProd({super.key});
+  final List<double> data = [30, 50, 80, 60, 90, 70]; // Example data
+  final List<String> labels = [
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat'
+  ]; // X-axis labels
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +48,16 @@ class CustomContsuppProd extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  Expanded(child: buildContainer('')),
-                  Expanded(child: buildContainer('')),
+                  Expanded(child: buildContainerWithChart()),
+                  Expanded(child: buildContainerWith()),
                 ],
               ),
             ),
             Expanded(
               child: Row(
                 children: [
-                  Expanded(
-                      child:
-                          buildContainerWithChart()), // Container with the chart widget
-                  Expanded(child: buildContainer('')),
+                  Expanded(child: buildContainerChart()),
+                  Expanded(child: buildContainer("")),
                 ],
               ),
             ),
@@ -60,39 +69,74 @@ class CustomContsuppProd extends StatelessWidget {
 
   Widget buildContainer(String label) {
     return Container(
-      margin: const EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(186, 198, 228, 237),
-        boxShadow: [
-          BoxShadow(
-            color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: BarChartSample7(),
-    );
+        margin: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(186, 198, 228, 237),
+          boxShadow: [
+            BoxShadow(
+              color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: DonutPieChart(data: data, labels: labels));
   }
 
-  // Widget to hold the PieChartSample3 widget
   Widget buildContainerWithChart() {
     return Container(
-      margin: const EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(186, 198, 228, 237),
-        boxShadow: [
-          BoxShadow(
-            color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: const PieChartSample3(), // Insert your chart widget here
-    );
+        margin: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(186, 198, 228, 237),
+          boxShadow: [
+            BoxShadow(
+              color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: BarGraph(
+            data: data, labels: labels) // Insert your chart widget here
+        );
+  }
+
+  Widget buildContainerWith() {
+    return Container(
+        margin: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(186, 198, 228, 237),
+          boxShadow: [
+            BoxShadow(
+              color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: PieChartSample3() // Insert your chart widget here
+        );
+  }
+
+  Widget buildContainerChart() {
+    return Container(
+        margin: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(186, 198, 228, 237),
+          boxShadow: [
+            BoxShadow(
+              color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: BarChartSample7() // Insert your chart widget here
+        );
   }
 }
 

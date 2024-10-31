@@ -1,8 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+// import 'package:otop_front/components/custome_con_suppage.dart';
+// import 'package:otop_front/components/custome_con_suppage.dart';
 import 'package:otop_front/services/add_supplier_service.dart';
 import 'package:otop_front/widget/supp_page.dart';
+// import 'package:otop_front/widget/supp_page.dart';
+// import 'package:otop_front/widget/supp_page.dart';
 
 class SupplierListWidget extends StatefulWidget {
   const SupplierListWidget({super.key});
@@ -74,10 +78,10 @@ class _SupplierListWidgetState extends State<SupplierListWidget> {
                     contentPadding: EdgeInsets.zero,
                     title: GestureDetector(
                       onTap: () {
-                        // Navigate to the supplier detail page
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => SuppPage(supplier: supplier),
+                            builder: (context) =>
+                                SupplierPage(supplier: supplier),
                           ),
                         );
                       },
