@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:otop_front/components/transactions.dart';
 // import 'package:otop_front/components/admin_sales.dart';
 // import 'package:otop_app/components/admin_on_sales.dart';
-import 'package:otop_front/components/on_sales.dart';
+// import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_app/components/admin_orders.dart';
 // import 'package:otop_app/components/admin_purchases.dart';
 // import 'package:otop_app/components/admin_sales.dart';
@@ -21,7 +22,7 @@ class MobileAdminDashboard extends StatefulWidget {
 
 
 class _MobileAdminDashboardState extends State<MobileAdminDashboard> {
-  Widget _currentWidget = OnSales();
+  Widget _currentWidget = MyTransaction();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +54,7 @@ class _MobileAdminDashboardState extends State<MobileAdminDashboard> {
                 ),
                 onTap: () {
                   setState(() {
-                    _currentWidget = OnSales();
+                    _currentWidget = MyTransaction();
                   });
                   Navigator.of(context).pop(); // Close the drawer
                 },

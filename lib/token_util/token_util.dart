@@ -23,11 +23,9 @@ class TokenUtil {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString(_tokenKey);
 
-    if (token != null) {
-      String role = await fetchRoleFromBackendOrDecode(token);
-      onRedirect(role);
+    String role = await fetchRoleFromBackendOrDecode(token!);
+    onRedirect(role);
     }
-  }
 
   static Future<String> fetchRoleFromBackendOrDecode(String token) async {
     return 'admin';

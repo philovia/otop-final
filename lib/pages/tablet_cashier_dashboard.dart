@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otop_front/components/custom_container_addsup.dart';
 // import 'package:otop_front/components/custom_container_supselect.dart';
-import 'package:otop_front/components/on_sales.dart';
+// import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_front/components/add_product_screen.dart';
 // import 'package:otop_front/components/reports.dart';
 // import 'package:otop_front/components/supplier_list.dart';
@@ -175,7 +175,7 @@ class _TabletCashierDashboardState extends State<TabletCashierDashboard> {
                         ),
                         onTap: () {
                           setState(() {
-                            _currentWidget = OnSales();
+                            _currentWidget = MyTransaction();
                           });
                         },
                       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:otop_front/components/add_product_screen.dart';
 // import 'package:otop_front/components/admin_sales.dart';
-import 'package:otop_front/components/on_sales.dart';
+// import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/components/transactions.dart';
 import 'package:otop_front/responsive/constant.dart';
@@ -160,7 +160,7 @@ class _TabletAdminDashboardState extends State<TabletAdminDashboard> {
                           style: TextStyle(fontSize: 13),
                         ),
                         onTap: () {
-                          _currentWidget = OnSales();
+                          _currentWidget = MyTransaction();
                         },
                       ),
                       Spacer(),

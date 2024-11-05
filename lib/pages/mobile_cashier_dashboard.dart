@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:otop_front/components/auth.dart';
 // import 'package:otop_front/components/custom_container_supselect.dart';
-import 'package:otop_front/components/on_sales.dart';
+// import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_front/components/reports.dart';
 // import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/components/transactions.dart';
@@ -152,7 +152,7 @@ class _MobileCashierDashboardState extends State<MobileCashierDashboard> {
                 ),
                 onTap: () {
                   setState(() {
-                    _currentWidget = OnSales();
+                    _currentWidget = MyTransaction();
                   });
                 },
               ),

@@ -3,8 +3,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-// import 'package:logging/logging.dart';
-// import 'package:logger/logger.dart';
+import 'package:logger/logger.dart';
 import 'package:otop_front/pages/desktop_admin_dashboard.dart'; // Import your admin dashboard
 import 'package:otop_front/pages/desktop_cashier_dashboard.dart';
 import 'package:otop_front/pages/desktop_supplier_dashboard.dart';
@@ -18,7 +17,6 @@ import 'package:otop_front/pages/tablet_admin_dashboard.dart'; // Import your ta
 import 'package:otop_front/pages/tablet_cashier_dashboard.dart';
 import 'package:otop_front/pages/tablet_supplier_dashboard.dart';
 import 'package:otop_front/providers/product_provider.dart';
-// import 'package:otop_front/responsive/constant.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,40 +24,13 @@ class AuthForm extends StatefulWidget {
   const AuthForm({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _AuthFormState createState() => _AuthFormState();
 }
 
 class _AuthFormState extends State<AuthForm> {
-  bool _isLogin = true;
-  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-
-  final String apiUrl = 'http://127.0.0.1:8083/api';
-
-  void _toggleForm() {
-    setState(() {
-      _isLogin = !_isLogin;
-    });
-  }
-
-  TextField _buildTextField(TextEditingController controller, String label,
-      {bool obscureText = false}) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: label,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-      obscureText: obscureText,
-    );
-  }
+  final AuthService _authService = AuthService(); // Instance of AuthService
 
   void _redirectUser(String role) {
     String routeName;
@@ -78,88 +49,28 @@ class _AuthFormState extends State<AuthForm> {
     Navigator.pushReplacementNamed(context, routeName);
   }
 
-  Future<void> _handleRegister() async {
-    String username = _usernameController.text.trim();
-    String email = _emailController.text.trim();
-    String password = _passwordController.text.trim();
-    String confirmPassword = _confirmPasswordController.text.trim();
-    String phone = _phoneController.text.trim();
-
-    if (password != confirmPassword) {
-      _showError('Passwords do not match');
-      return;
-    }
-
-    var response = await http.post(
-      Uri.parse('$apiUrl/register'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'username': username,
-        'email': email,
-        'password': password,
-        'phone': phone,
-        'role': _determineRole(username),
-      }),
-    );
-
-    if (response.statusCode == 201) {
-      _showMessage('Registration successful');
-      _toggleForm();
-    } else {
-      _showError('Registration failed: ${jsonDecode(response.body)['error']}');
-    }
-  }
-
   Future<void> _handleLogin() async {
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
 
-    var response = await http.post(
-      Uri.parse('$apiUrl/login'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'email': email,
-        'password': password,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      await _saveToken(data['token']);
+    try {
+      String role = await _authService.login(context, email, password);
       if (!mounted) return;
-      _redirectUser(data['role']);
-    } else {
-      _showError('Login failed: ${jsonDecode(response.body)['error']}');
+      _redirectUser(role); // Redirect based on the user role
+    } catch (e) {
+      _showError(e.toString());
     }
-  }
-
-  String _determineRole(String username) {
-    if (username.endsWith('_admin')) return 'admin';
-    if (username.endsWith('_cashier')) return 'cashier';
-    return 'supplier';
-  }
-
-  Future<void> _saveToken(String token) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', token);
   }
 
   Future<void> _loadToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     if (token != null) {
-      // If there's a token, redirect the user based on their role
-      // Implement your logic to fetch role from backend or decode token if it includes role info
+      // You can handle the token if needed
     }
   }
 
   void _showError(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
-  }
-
-  void _showMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
     );
@@ -201,58 +112,28 @@ class _AuthFormState extends State<AuthForm> {
                 const SizedBox(height: 10),
                 Center(
                   child: Text(
-                    _isLogin ? 'Login' : 'Register',
+                    'Login',
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(height: 10),
-                if (!_isLogin) ...[
-                  _buildTextField(_usernameController, 'Username'),
-                  const SizedBox(height: 10),
-                  _buildTextField(_phoneController, 'Phone Number'),
-                  const SizedBox(height: 10),
-                ],
                 _buildTextField(_emailController, 'Email'),
                 const SizedBox(height: 10),
                 _buildTextField(_passwordController, 'Password',
                     obscureText: true),
-                if (!_isLogin) ...[
-                  const SizedBox(height: 10),
-                  _buildTextField(
-                      _confirmPasswordController, 'Confirm Password',
-                      obscureText: true),
-                ],
                 const SizedBox(height: 10),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      if (_isLogin) {
-                        _handleLogin();
-                      } else {
-                        _handleRegister();
-                      }
-                    },
+                    onPressed: _handleLogin,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: Text(_isLogin ? 'Login' : 'Register'),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Center(
-                  child: GestureDetector(
-                    onTap: _toggleForm,
-                    child: Text(
-                      _isLogin
-                          ? "Don't have an account? Sign Up"
-                          : 'Already have an account? Login',
-                      style: const TextStyle(color: Colors.blue),
-                    ),
+                    child: Text('Login'),
                   ),
                 ),
               ],
@@ -262,34 +143,76 @@ class _AuthFormState extends State<AuthForm> {
       ),
     );
   }
+
+  TextField _buildTextField(TextEditingController controller, String label,
+      {bool obscureText = false}) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      obscureText: obscureText,
+    );
+  }
 }
 
-// class AuthService {
-//   final Logger _logger = Logger();
+class AuthService {
+  final Logger _logger = Logger();
+  final String _baseApiUrl = 'http://127.0.0.1:8096'; 
 
-//   Future<void> logout(BuildContext context, String token) async {
-//     try {
-//       final response = await http.post(
-//         Uri.parse('http://127.0.0.1:8083/api/logout'),
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Authorization': 'Bearer $token',
-//         },
-//       );
+  Future<String> login(BuildContext context, String email, String password) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$_baseApiUrl/login'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': email, 'password': password}),
+      );
 
-//       if (response.statusCode == 200) {
-//         Navigator.pushReplacementNamed(context, '/login');
-//       } else {
-//         final errorMessage =
-//             json.decode(response.body)['error'] ?? 'Logout failed';
-//         throw Exception(errorMessage);
-//       }
-//     } catch (e) {
-//       _logger.e("Logout error: $e");
-//       throw Exception("An error occurred during logout");
-//     }
-//   }
-// }
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        await _saveToken(data['token']);
+        return data['role']; 
+      } else {
+        final errorMessage = json.decode(response.body)['error'] ?? 'Login failed';
+        throw Exception(errorMessage);
+      }
+    } catch (e) {
+      _logger.e("Login error: $e");
+      throw Exception("An error occurred during login");
+    }
+  }
+
+  Future<void> logout(BuildContext context, String token) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$_baseApiUrl/logout'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        Navigator.pushReplacementNamed(context, '/login');
+      } else {
+        final errorMessage = json.decode(response.body)['error'] ?? 'Logout failed';
+        throw Exception(errorMessage);
+      }
+    } catch (e) {
+      _logger.e("Logout error: $e");
+      throw Exception("An error occurred during logout");
+    }
+  }
+
+
+  Future<void> _saveToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
+  }
+}
 
 void main() {
   runApp(const MyApp());

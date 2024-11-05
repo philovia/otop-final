@@ -1,14 +1,15 @@
-// ignore_for_file: unused_local_variable
+
+// ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:otop_front/widget/cart_page.dart';
 // import 'package:otop_front/widget/supp_page.dart';
 
-class CustomeConSuppage extends StatelessWidget {
-  const CustomeConSuppage({super.key, required Map supplier});
+class CustomContcart extends StatelessWidget {
+  const CustomContcart({super.key, });
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> supplier = {};
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(186, 198, 228, 237),
@@ -17,7 +18,7 @@ class CustomeConSuppage extends StatelessWidget {
             SizedBox(height: 32.0, width: 20.0),
             Row(
               children: [
-                Text('Supplier Page', style: TextStyle(fontSize: 18)),
+                Text('Cart', style: TextStyle(fontSize: 18)),
               ],
             ),
             Divider(color: const Color.fromARGB(223, 137, 134, 134))
@@ -46,18 +47,37 @@ class CustomeConSuppage extends StatelessWidget {
               ],
             ),
             // to put the listview inside the container
-            // child: SupplierPage(supplier: supplier) // here i will the cart widget 
-            ),
+           child: Column(
+            children: [ CartItemWidget()
+              // CartItemWidget(
+              //   productName: 'Analog Magazine Rack',
+              //   price: 120.0,
+              //   quantity: 2,
+              //   total: 240.0,
+              // ),
+              // CartItemWidget(
+              //   productName: 'Closca Helmet',
+              //   price: 132.0,
+              //   quantity: 1,
+              //   total: 132.0,
+              // ),
+              // CartItemWidget(
+              //   productName: 'Sigg Water Bottle',
+              //   price: 23.0,
+              //   quantity: 2,
+              //   total: 46.0,
+              // ),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
-
 void main() {
   runApp(
     MaterialApp(
-        home: CustomeConSuppage(
-      supplier: {},
+        home: CustomContcart(
     )),
   );
 }

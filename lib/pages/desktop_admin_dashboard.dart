@@ -1,18 +1,20 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:otop_front/components/custom_contCart.dart';
+// import 'package:otop_front/components/custom_contCart.dart';
 import 'package:otop_front/components/custom_contSupp_prod.dart';
 import 'package:otop_front/components/custom_container_addsup.dart';
 import 'package:otop_front/components/custom_container_supselect.dart';
 import 'package:otop_front/components/custome_con_suppage.dart';
-import 'package:otop_front/components/on_sales.dart';
+// import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_front/components/supplier_list.dart';
 import 'package:otop_front/components/transactions.dart';
 import 'package:otop_front/responsive/constant.dart';
-// import 'package:otop_front/services/logout_services.dart';
-// // import 'package:otop_front/widget/supp_page.dart';
-// import 'dart:async';
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:otop_front/services/logout_services.dart';
+// import 'package:otop_front/widget/supp_page.dart';
+import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DesktopAdminDashboard extends StatefulWidget {
   const DesktopAdminDashboard({super.key});
@@ -24,26 +26,26 @@ class DesktopAdminDashboard extends StatefulWidget {
 class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
   Widget _currentWidget = CustomContainerCashier();
 
-  // final AuthService _authService = AuthService();
+  final AuthService _authService = AuthService();
   bool _isSuppliersExpanded = false;
 
-  // Future<void> _logout() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final String? token = prefs.getString('token'); // Retrieve your token here
+  Future<void> _logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token'); 
 
-  //   try {
-  //     await _authService.logout(context, token!);
-  //     if (mounted) {
-  //       Navigator.of(context).pushReplacementNamed('/login');
-  //     }
-  //   } catch (e) {
-  //     if (mounted) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text(e.toString())),
-  //       );
-  //     }
-  //   }
-  // }
+    try {
+      await _authService.logout(context, token!);
+      if (mounted) {
+        Navigator.of(context).pushReplacementNamed('/login');
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString())),
+        );
+      }
+    }
+  }
 
   void _showLogoutConfirmationDialog() {
     showDialog(
@@ -62,7 +64,7 @@ class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                // _logout();
+                _logout();
               },
               child: Text('Yes'),
             ),
@@ -195,7 +197,7 @@ class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
                                   horizontal: 52, vertical: 0),
                               onTap: () {
                                 setState(() {
-                                  // _currentWidget = SupplierList();
+                                  _currentWidget = CustomContcart();
                                   _isSuppliersExpanded =
                                       false; // Close dropdown
                                 });
@@ -219,7 +221,7 @@ class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
                             EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                         onTap: () {
                           setState(() {
-                            _currentWidget = OnSales();
+                            _currentWidget = MyTransaction();
                           });
                         },
                       ),

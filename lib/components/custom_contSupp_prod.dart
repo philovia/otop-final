@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:otop_front/widget_pos/bar_chart.dart';
 import 'package:otop_front/widget_pos/chart_admin.dart';
 import 'package:otop_front/widget_pos/chart_bar.dart';
-import 'package:otop_front/widget_pos/sample_chart.dart';
+// import 'package:otop_front/widget_pos/sample_chart.dart';
 
 class CustomContsuppProd extends StatelessWidget {
   CustomContsuppProd({super.key});
@@ -57,7 +57,8 @@ class CustomContsuppProd extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(child: buildContainerChart()),
-                  Expanded(child: buildContainer("")),
+                  Divider()
+                  // Expanded(child: buildContainer("")),
                 ],
               ),
             ),
@@ -67,22 +68,22 @@ class CustomContsuppProd extends StatelessWidget {
     );
   }
 
-  Widget buildContainer(String label) {
-    return Container(
-        margin: const EdgeInsets.all(6),
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(186, 198, 228, 237),
-          boxShadow: [
-            BoxShadow(
-              color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: Offset(0, 3),
-            ),
-          ],
-        ),
-        child: DonutPieChart(data: data, labels: labels));
-  }
+  // Widget buildContainer(String label) {
+  //   return Container(
+  //       margin: const EdgeInsets.all(6),
+  //       decoration: BoxDecoration(
+  //         color: const Color.fromARGB(186, 198, 228, 237),
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+  //             spreadRadius: 5,
+  //             blurRadius: 7,
+  //             offset: Offset(0, 3),
+  //           ),
+  //         ],
+  //       ),
+  //       child: DonutPieChart(data: data, labels: labels));
+  // }
 
   Widget buildContainerWithChart() {
     return Container(
