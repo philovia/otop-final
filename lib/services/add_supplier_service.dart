@@ -6,8 +6,15 @@ import 'package:logging/logging.dart' as logging;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddSupplierService {
+<<<<<<< HEAD
   final String baseUrl = 'http://127.0.0.1:8096'; 
   final log = logging.Logger('AddSupplierService');
+=======
+  final String apiUrl = 'http://127.0.0.1:8096/supplier';
+  final String getAllSuppliersUrl = 'http://127.0.0.1:8096/supplier';
+
+  final log = logging.Logger('UserService');
+>>>>>>> 74c189b (okay admin and supplier logreg)
 
   // Register User Method
   Future<bool> registerUser(Map<String, String> userData) async {

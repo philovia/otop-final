@@ -9,7 +9,7 @@ import 'package:otop_front/components/custom_container_supselect.dart';
 import 'package:otop_front/components/custome_con_suppage.dart';
 // import 'package:otop_front/components/on_sales.dart';
 // import 'package:otop_front/components/supplier_list.dart';
-import 'package:otop_front/components/transactions.dart';
+// import 'package:otop_front/components/transactions.dart';
 import 'package:otop_front/responsive/constant.dart';
 import 'package:otop_front/services/logout_services.dart';
 // import 'package:otop_front/widget/supp_page.dart';
@@ -31,7 +31,11 @@ class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
 
   Future<void> _logout() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+<<<<<<< HEAD
     final String? token = prefs.getString('token'); 
+=======
+    final String? token = prefs.getString('token'); // Retrieve your token here
+>>>>>>> 74c189b (okay admin and supplier logreg)
 
     try {
       await _authService.logout(context, token!);
@@ -172,7 +176,7 @@ class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
                             ),
                             ListTile(
                               title: Text(
-                                'Supplier Page',
+                                'Cart',
                                 style: TextStyle(fontSize: 12),
                               ),
                               dense: true,
@@ -180,16 +184,14 @@ class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
                                   horizontal: 52, vertical: 0),
                               onTap: () {
                                 setState(() {
-                                  _currentWidget = CustomeConSuppage(
-                                    supplier: {},
-                                  );
+                                  _currentWidget = CustomeConSuppage();
                                   _isSuppliersExpanded = false;
                                 });
                               },
                             ),
                             ListTile(
                               title: Text(
-                                'Cart',
+                                'Orders',
                                 style: TextStyle(fontSize: 12),
                               ),
                               dense: true,
@@ -241,7 +243,7 @@ class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
                             EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                         onTap: () {
                           setState(() {
-                            _currentWidget = MyTransaction();
+                            _currentWidget = CustomeConSuppage();
                           });
                         },
                       ),
@@ -288,7 +290,7 @@ class _DesktopAdminDashboardState extends State<DesktopAdminDashboard> {
                     child: Container(
                       // constraints: const BoxConstraints(maxWidth: 1700),
 
-                      padding: const EdgeInsets.all(10),
+                      // padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(98, 151, 147, 147),
                       ),

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart'; // Import Flutter Material for navigatio
 class AuthService {
   Future<void> logout(BuildContext context, String token) async {
     final response = await http.post(
-      Uri.parse('http://127.0.0.1:8083/api/logout'),
+      Uri.parse('http://127.0.0.1:8096/logout'),
       headers: {
         'Authorization': 'Bearer $token',
       },

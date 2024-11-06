@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 
 class ProductService {
-  final String _baseUrl = "http://127.0.0.1:8083/api/products"; // Update with your backend URL
+  final String _baseUrl =
+      "http://127.0.0.1:8096/api/products"; // Update with your backend URL
 
   Future<String?> _uploadImage(String? imagePath) async {
     if (imagePath == null) return null;
@@ -22,19 +23,20 @@ class ProductService {
 
     var response = await request.send();
     if (response.statusCode == 200) {
-      
       var responseBody = await response.stream.bytesToString();
       var jsonResponse = json.decode(responseBody);
-      return jsonResponse['file_path']; 
+      return jsonResponse['file_path'];
     } else {
       throw Exception("Failed to upload image");
     }
   }
 
-  Future<void> saveAllProducts(List<Map<String, dynamic>> productDataList) async {
+  Future<void> saveAllProducts(
+      List<Map<String, dynamic>> productDataList) async {
     for (var productData in productDataList) {
       // Handle image upload if necessary
-      final imagePath = await _uploadImage(productData["image"]); // If you're saving the image
+      final imagePath = await _uploadImage(
+          productData["image"]); // If you're saving the image
       if (imagePath != null) {
         productData["file_path"] = imagePath;
       }

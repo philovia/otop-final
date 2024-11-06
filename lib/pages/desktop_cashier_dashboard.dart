@@ -1,13 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:otop_front/components/custom_container_addsup.dart';
-// import 'package:otop_front/components/on_sales.dart';
-import 'package:otop_front/components/transactions.dart';
+// import 'package:otop_front/components/custom_container_addsup.dart';
+
 import 'package:otop_front/responsive/constant.dart';
 import 'package:otop_front/services/logout_services.dart';
 import 'package:otop_front/widget/pos_widget.dart';
-// import 'package:otop_front/widget/supplier_product_page.dart';
+import 'package:otop_front/widget/product_listCont.dart';
+
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,16 +22,13 @@ class DesktopCashierDashboard extends StatefulWidget {
 class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
   Widget _currentWidget = POSScreen();
 
-  // Instance of AuthService
   final AuthService _authService = AuthService();
 
-  // Add these variables
-  double totalPrice = 0.0; // Initialize totalPrice
-  int totalStock = 0; // Initialize totalStock
+  double totalPrice = 0.0;
+  int totalStock = 0;
   List<dynamic> cartItems = [];
   int productCount = 0;
 
-  // Function to handle logout
   Future<void> _logout() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
@@ -134,12 +131,12 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                       ListTile(
                         leading: Icon(Icons.shopping_bag),
                         title: Text(
-                          'Purchase',
+                          'Receipts',
                           style: TextStyle(fontSize: 13),
                         ),
                         onTap: () {
                           setState(() {
-                            _currentWidget = CustomContainerCashier();
+                            // _currentWidget = CustomContainerCashier();
                           });
                         },
                       ),
@@ -147,12 +144,12 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                       ListTile(
                         leading: Icon(Icons.add_box),
                         title: Text(
-                          'Transactions',
+                          'Products',
                           style: TextStyle(fontSize: 13),
                         ),
                         onTap: () {
                           setState(() {
-                            _currentWidget = MyTransaction();
+                            _currentWidget = ProductListScreen();
                           });
                         },
                       ),
@@ -173,7 +170,7 @@ class _DesktopCashierDashboardState extends State<DesktopCashierDashboard> {
                   child: Center(
                     child: Container(
                       constraints: const BoxConstraints(maxWidth: 1700),
-                      padding: const EdgeInsets.all(10),
+                      // padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                           // borderRadius: BorderRadius.only(topLeft:Radius.circular(20.0),
                           // topRight: Radius.circular(20.0),)

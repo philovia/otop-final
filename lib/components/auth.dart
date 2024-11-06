@@ -4,16 +4,20 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
+<<<<<<< HEAD
 import 'package:otop_front/pages/desktop_admin_dashboard.dart'; // Import your admin dashboard
+=======
+import 'package:otop_front/pages/desktop_admin_dashboard.dart';
+>>>>>>> 74c189b (okay admin and supplier logreg)
 import 'package:otop_front/pages/desktop_cashier_dashboard.dart';
 import 'package:otop_front/pages/desktop_supplier_dashboard.dart';
-import 'package:otop_front/pages/mobile_admin_dashboard.dart'; // Import your mobile admin dashboard
+import 'package:otop_front/pages/mobile_admin_dashboard.dart';
 import 'package:otop_front/pages/mobile_cashier_dashboard.dart';
 import 'package:otop_front/pages/mobile_supplier_dashboard.dart';
-import 'package:otop_front/pages/responsive_dashboard_layout.dart'; // Import your responsive admin dashboard
+import 'package:otop_front/pages/responsive_dashboard_layout.dart';
 import 'package:otop_front/pages/responsive_dashboard_cashier.dart';
 import 'package:otop_front/pages/responsive_dashboard_supplier.dart';
-import 'package:otop_front/pages/tablet_admin_dashboard.dart'; // Import your tablet admin dashboard
+import 'package:otop_front/pages/tablet_admin_dashboard.dart';
 import 'package:otop_front/pages/tablet_cashier_dashboard.dart';
 import 'package:otop_front/pages/tablet_supplier_dashboard.dart';
 import 'package:otop_front/providers/product_provider.dart';
@@ -30,7 +34,25 @@ class AuthForm extends StatefulWidget {
 class _AuthFormState extends State<AuthForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+<<<<<<< HEAD
   final AuthService _authService = AuthService(); // Instance of AuthService
+=======
+  final AuthService _authService = AuthService();
+
+  TextField _buildTextField(TextEditingController controller, String label,
+      {bool obscureText = false}) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      obscureText: obscureText,
+    );
+  }
+>>>>>>> 74c189b (okay admin and supplier logreg)
 
   void _redirectUser(String role) {
     String routeName;
@@ -54,19 +76,38 @@ class _AuthFormState extends State<AuthForm> {
     String password = _passwordController.text.trim();
 
     try {
+<<<<<<< HEAD
       String role = await _authService.login(context, email, password);
       if (!mounted) return;
       _redirectUser(role); // Redirect based on the user role
+=======
+      var data = await _authService.login(email, password);
+      await _saveToken(data['token']);
+      if (!mounted) return;
+      _redirectUser(data['role']);
+>>>>>>> 74c189b (okay admin and supplier logreg)
     } catch (e) {
       _showError(e.toString());
     }
   }
 
+<<<<<<< HEAD
+=======
+  Future<void> _saveToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
+  }
+
+>>>>>>> 74c189b (okay admin and supplier logreg)
   Future<void> _loadToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     if (token != null) {
+<<<<<<< HEAD
       // You can handle the token if needed
+=======
+      // Implement your logic to fetch role from backend or decode token if it includes role info
+>>>>>>> 74c189b (okay admin and supplier logreg)
     }
   }
 
@@ -133,7 +174,11 @@ class _AuthFormState extends State<AuthForm> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
+<<<<<<< HEAD
                     child: Text('Login'),
+=======
+                    child: const Text('Login'),
+>>>>>>> 74c189b (okay admin and supplier logreg)
                   ),
                 ),
               ],
@@ -161,6 +206,7 @@ class _AuthFormState extends State<AuthForm> {
 
 class AuthService {
   final Logger _logger = Logger();
+<<<<<<< HEAD
   final String _baseApiUrl = 'http://127.0.0.1:8096'; 
 
   Future<String> login(BuildContext context, String email, String password) async {
@@ -178,6 +224,28 @@ class AuthService {
       } else {
         final errorMessage = json.decode(response.body)['error'] ?? 'Login failed';
         throw Exception(errorMessage);
+=======
+
+  Future<Map<String, dynamic>> login(
+      String emailOrStoreName, String password) async {
+    try {
+      final isSupplier = emailOrStoreName.contains("store_name");
+
+      final response = await http.post(
+        Uri.parse('http://127.0.0.1:8096/api'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          isSupplier ? 'store_name' : 'email': emailOrStoreName,
+          'password': password
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        final errorData = jsonDecode(response.body);
+        throw Exception(errorData['error'] ?? 'Login failed');
+>>>>>>> 74c189b (okay admin and supplier logreg)
       }
     } catch (e) {
       _logger.e("Login error: $e");
@@ -188,7 +256,11 @@ class AuthService {
   Future<void> logout(BuildContext context, String token) async {
     try {
       final response = await http.post(
+<<<<<<< HEAD
         Uri.parse('$_baseApiUrl/logout'),
+=======
+        Uri.parse('http://127.0.0.1:8096/api'),
+>>>>>>> 74c189b (okay admin and supplier logreg)
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
@@ -198,7 +270,12 @@ class AuthService {
       if (response.statusCode == 200) {
         Navigator.pushReplacementNamed(context, '/login');
       } else {
+<<<<<<< HEAD
         final errorMessage = json.decode(response.body)['error'] ?? 'Logout failed';
+=======
+        final errorMessage =
+            json.decode(response.body)['error'] ?? 'Logout failed';
+>>>>>>> 74c189b (okay admin and supplier logreg)
         throw Exception(errorMessage);
       }
     } catch (e) {
@@ -206,12 +283,15 @@ class AuthService {
       throw Exception("An error occurred during logout");
     }
   }
+<<<<<<< HEAD
 
 
   Future<void> _saveToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
   }
+=======
+>>>>>>> 74c189b (okay admin and supplier logreg)
 }
 
 void main() {
